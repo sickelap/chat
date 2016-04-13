@@ -1,1 +1,1 @@
-Meteor.publish('messages');
+import '../imports/api/messages';

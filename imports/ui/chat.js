@@ -1,30 +1,37 @@
+import {Meteor} from 'meteor/meteor';
+import {Template} from 'meteor/templating';
+import {ReactiveDict} from 'meteor/reactive-dict';
 import './chat.html';
 
-Template.chat.events({
-    'click .logout'() {
-        Meteor.logout();
-    },
-    'keyup .say'(ev, instance) {
-        let value = ev.target.value;
-        if (ev.keyCode !== 13 || value.length === 0) {
-            return;
-        }
+import {Messages} from '../api/messages';
 
-        Meteor.call('say', instance.get('currentChannel'), message);
+Template.chat.onCreated(function() {
+  this.state = new ReactiveDict();
 
-        ev.target.value = '';
-    }
+  if (!this.state.get('currentChannel')) {
+    this.state.set('currentChannel', 'default');
+  }
+
+  this.autorun(() => {
+    this.subscribe('messages', this.state.get('currentChannel'));
+  });
 });
 
-Template.chat.onCreated(() => {
-    this.getCurrentChannel = () => this.state.get('currentChannel');
+Template.chat.events({
+  'keyup .say'(ev, instance) {
+    let message = ev.target.value;
+    if (ev.keyCode !== 13 || message.length === 0) {
+      return;
+    }
 
-    this.autorun(() => {
-        this.subscribe('messages', this.getCurrentChannel());
-    });
+    Meteor.call('say', instance.state.get('currentChannel'), message);
+
+    ev.target.value = '';
+  }
 });
 
 Template.chat.helpers({
-    messages() {
-    }
+  messages() {
+    return Messages.find({});
+  }
 });

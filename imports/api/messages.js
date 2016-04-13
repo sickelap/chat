@@ -1,29 +1,30 @@
-export const Messages = Meteor.Collection('messages');
+import {Meteor} from 'meteor/meteor';
+import {Mongo} from 'meteor/mongo';
+import {check} from 'meteor/check';
+
+export const Messages = new Mongo.Collection('messages');
 
 if (Meteor.isServer) {
-    Meteor.publish('messages', (channel, limit = 50) => {
-        check(channel, String);
-        check(limit, Number);
-
-        return Messages.find({channel}, {limit});
-    });
+  Meteor.publish('messages', (channel) => {
+    return Messages.find({channel}, {limit: 1000});
+  });
 }
 
 Meteor.methods({
-    'say'(channel, message) {
-        check(channel, String);
-        check(message, String);
+  'say'(channel, message) {
+    check(channel, String);
+    check(message, String);
 
-        if (!Meteor.userId()) {
-            throw new Meteor.Error('not-authorized');
-        }
-
-        Messages.insert({
-            channel,
-            message,
-            userId: Meteor.userId(),
-            username: Meteor.user().username,
-            createdAt: new Date()
-        });
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
     }
+
+    Messages.insert({
+      channel,
+      message,
+      userId: Meteor.userId(),
+      name: Meteor.user().profile.name,
+      createdAt: new Date()
+    });
+  }
 });

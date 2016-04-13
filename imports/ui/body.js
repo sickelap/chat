@@ -1,5 +1,2 @@
-
-Template.body.onCreated(() => {
-    this.state = new ReactiveDict();
-    Meteor.subscribe('messages');
-});
+import './chat';
+import './body.html';
