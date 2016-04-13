@@ -1,0 +1,11 @@
+<template name="chat">
+  <a href="#">{{currentUser.profile.name}}</a> | {{> logout}}
+
+  <hr>
+
+  <input type="text" placeholder="Say something" class="say">
+
+  <hr>
+
+  {{messages}}
+</template>
