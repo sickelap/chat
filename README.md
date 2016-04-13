@@ -2,6 +2,6 @@
 
 ##### Running locally
 
-- install meteor by following [instructions](https://www.meteor.com/install)
+- follow [instructions](https://www.meteor.com/install) to install meteor
 - run ``meteor`` inside cloned repository folder
 
