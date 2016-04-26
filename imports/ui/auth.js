@@ -1,4 +1,5 @@
 import './auth.html';
+import './auth.css';
 
 Template.login.events({
   'click .login-with-facebook'() {
