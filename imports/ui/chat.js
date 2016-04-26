@@ -35,5 +35,8 @@ Template.chat.events({
 Template.chat.helpers({
   messages() {
     return Messages.find({});
+  },
+  formatDate(date) {
+    return moment(date).format('YYYY-MM-DD HH:mm:SS');
   }
 });

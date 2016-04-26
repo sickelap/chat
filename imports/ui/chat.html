@@ -1,13 +1,22 @@
 <template name="chat">
   {{> header}}
 
-  {{#each messages}}
-    <div>
-      {{name}}: {{message}}
-      {{createdAt}}
-      <hr>
-    </div>
-  {{/each}}
+  <table class="messages-container table table-striped">
+    <tbody>
+    {{#each messages}}
+      <tr>
+        <td>
+          <div class="name">
+            {{name}}
+            <span class="date">{{formatDate createdAt}}</span>
+          </div>
+
+          {{message}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
 
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
