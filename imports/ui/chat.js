@@ -17,6 +17,12 @@ Template.chat.onCreated(function() {
   this.autorun(() => {
     this.subscribe('messages', this.state.get('currentChannel'));
   });
+
+  Messages.find({}).observeChanges({
+    added: function() {
+      $('body').animate({scrollTop: $(document).height() + 200});
+    }
+  });
 });
 
 Template.chat.events({
