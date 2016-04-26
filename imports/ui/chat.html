@@ -1,8 +1,5 @@
 <template name="chat">
   {{> header}}
-  <input type="text" placeholder="Say something" class="say">
-
-  <hr>
 
   {{#each messages}}
     <div>
@@ -11,4 +8,10 @@
       <hr>
     </div>
   {{/each}}
+
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+      <input type="text" placeholder="Say something" class="form-control say">
+    </div>
+  </nav>
 </template>

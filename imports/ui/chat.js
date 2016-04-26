@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import {Template} from 'meteor/templating';
 import {ReactiveDict} from 'meteor/reactive-dict';
 import './chat.html';
+import './chat.css';
 import './header.html';
 
 import {Messages} from '../api/messages';
